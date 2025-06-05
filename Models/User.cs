@@ -12,7 +12,10 @@ namespace Backend.Models
         [Required]
         public string PasswordHash { get; set; }
 
-        
+
+        // Navigation property for routines
+        public ICollection<Routine> Routines { get; set; } = new List<Routine>();
+
 
         public User(string id, string name, string passwordHash)
         {

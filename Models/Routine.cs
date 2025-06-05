@@ -30,6 +30,11 @@ namespace Backend.Models
         [Required]
         public RoutineType Type { get; set; } // Enum for type safety
 
+        // Add navigation properties
+        public User User { get; set; } // Navigation property for User
+        public Activity Activity { get; set; } // Navigation property for Activity
+
+
         public Routine(string id, string userId, string activityId, string value, string unit, int repetitions = 0, DateTime? date = null, RoutineType type = RoutineType.Done)
         {
             this.Id = id;

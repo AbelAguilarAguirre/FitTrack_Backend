@@ -12,7 +12,7 @@ namespace Backend.Models
         public string Description { get; set; }
 
         
-
+        public ICollection<Routine> Routines { get; set; } = new List<Routine>();
         public Activity(string id, string Name, string Description)
         {
             Id = id;
