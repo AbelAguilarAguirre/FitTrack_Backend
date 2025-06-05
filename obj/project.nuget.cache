@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "lCEBWX3HbbE=",
+  "success": true,
+  "projectFilePath": "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/Backend.csproj",
+  "expectedPackageFiles": [
+    "/home/sharedordaz/.nuget/packages/microsoft.aspnetcore.openapi/9.0.4/microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "/home/sharedordaz/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/home/sharedordaz/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.4/microsoft.aspnetcore.app.ref.9.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}
