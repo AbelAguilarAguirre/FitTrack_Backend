@@ -6,14 +6,14 @@ namespace Backend.Models
     public class Routine
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         [Required]
-        public string ActivityId { get; set; } // Renamed to follow PascalCase
+        public int ActivityId { get; set; } // Renamed to follow PascalCase
 
         [Required]
         [MaxLength(50)]
@@ -35,7 +35,7 @@ namespace Backend.Models
         public Activity Activity { get; set; } // Navigation property for Activity
 
 
-        public Routine(string id, string userId, string activityId, string value, string unit, int repetitions = 0, DateTime? date = null, RoutineType type = RoutineType.Done)
+        public Routine(int id, int userId, int activityId, string value, string unit, int repetitions = 0, DateTime? date = null, RoutineType type = RoutineType.Done)
         {
             this.Id = id;
             this.UserId = userId;

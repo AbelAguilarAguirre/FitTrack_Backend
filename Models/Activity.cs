@@ -5,7 +5,7 @@ namespace Backend.Models
     public class Activity
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
@@ -13,7 +13,7 @@ namespace Backend.Models
 
         
         public ICollection<Routine> Routines { get; set; } = new List<Routine>();
-        public Activity(string id, string Name, string Description)
+        public Activity(int id, string Name, string Description)
         {
             Id = id;
             Name = Name;

@@ -5,7 +5,7 @@ namespace Backend.Models
     public class User
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
@@ -17,7 +17,7 @@ namespace Backend.Models
         public ICollection<Routine> Routines { get; set; } = new List<Routine>();
 
 
-        public User(string id, string name, string passwordHash)
+        public User(int id, string name, string passwordHash)
         {
             Id = id;
             Name = name;
