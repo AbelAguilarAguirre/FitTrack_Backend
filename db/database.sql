@@ -6,7 +6,6 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema default_schema
 -- -----------------------------------------------------
@@ -27,35 +26,12 @@ USE `FitTrack_Database` ;
 DROP TABLE IF EXISTS `FitTrack_Database`.`activities` ;
 
 CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`activities` (
-  `id` INT NULL DEFAULT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`));
-
-
--- -----------------------------------------------------
--- Table `FitTrack_Database`.`routine`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `FitTrack_Database`.`routine` ;
-
-CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`routine` (
-  `id` INT NULL DEFAULT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `activity_id` INT NOT NULL,
-  `value` INT NOT NULL,
-  `unit` VARCHAR(20) NULL DEFAULT NULL,
-  `repetitions` INT NULL DEFAULT NULL,
-  `date` DATE NOT NULL,
-  `type` ENUM('goal', 'done') NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX (`user_id` ASC) VISIBLE,
-  INDEX (`activity_id` ASC) VISIBLE,
-  CONSTRAINT ``
-    FOREIGN KEY (`user_id`)
-    REFERENCES `FitTrack_Database`.`users` (`id`),
-  CONSTRAINT ``
-    FOREIGN KEY (`activity_id`)
-    REFERENCES `FitTrack_Database`.`activities` (`id`));
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -64,14 +40,50 @@ CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`routine` (
 DROP TABLE IF EXISTS `FitTrack_Database`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`users` (
-  `id` INT NULL DEFAULT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX (`username` ASC) VISIBLE)
-DEFAULT CHARACTER SET = binary;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8mb4;
+
+-- -----------------------------------------------------
+-- Table `FitTrack_Database`.`routine`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `FitTrack_Database`.`routine` ;
+
+CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`routine` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `activity_id` INT NOT NULL,
+  `value` INT NOT NULL,
+  `unit` VARCHAR(20) NULL DEFAULT NULL,
+  `repetitions` INT NULL DEFAULT NULL,
+  `date` DATE NOT NULL,
+  `type` ENUM('goal', 'done') NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `idx_user_id` (`user_id` ASC) VISIBLE,
+  INDEX `idx_activity_id` (`activity_id` ASC) VISIBLE,
+  CONSTRAINT `fk_routine_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `FitTrack_Database`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_routine_activity`
+    FOREIGN KEY (`activity_id`)
+    REFERENCES `FitTrack_Database`.`activities` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
