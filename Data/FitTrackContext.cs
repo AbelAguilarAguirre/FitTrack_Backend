@@ -22,12 +22,12 @@ namespace Backend.Data
         modelBuilder.Entity<Routine>()
             .HasOne(r => r.User)
             .WithMany(u => u.Routines)
-            .HasForeignKey(r => r.UserId);
+            .HasForeignKey(r => r.user_id);
 
         modelBuilder.Entity<Routine>()
             .HasOne(r => r.Activity)
             .WithMany(a => a.Routines)
-            .HasForeignKey(r => r.ActivityId);
+            .HasForeignKey(r => r.activity_id);
     }
 }
 }

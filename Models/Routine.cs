@@ -10,10 +10,10 @@ namespace Backend.Models
 
         [Required]
         [MaxLength(100)]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
         [Required]
-        public int ActivityId { get; set; } // Renamed to follow PascalCase
+        public int activity_id { get; set; } // Renamed to follow PascalCase
 
         [Required]
         [MaxLength(50)]
@@ -35,11 +35,11 @@ namespace Backend.Models
         public Activity Activity { get; set; } // Navigation property for Activity
 
 
-        public Routine(int id, int userId, int activityId, string value, string unit, int repetitions = 0, DateTime? date = null, RoutineType type = RoutineType.Done)
+        public Routine(int id, int user_id, int activity_id, string value, string unit, int repetitions = 0, DateTime? date = null, RoutineType type = RoutineType.Done)
         {
             this.Id = id;
-            this.UserId = userId;
-            this.ActivityId = activityId;
+            this.user_id = user_id;
+            this.activity_id = activity_id;
             this.value = value;
             this.unit = unit;
             this.repetitions = repetitions;
