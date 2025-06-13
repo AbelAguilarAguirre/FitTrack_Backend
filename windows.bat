@@ -56,12 +56,14 @@ set SQL_FILE=db\database.sql
 echo Creating MySQL user and granting privileges...
 echo CREATE USER IF NOT EXISTS '%DB_USER%'@'localhost' IDENTIFIED BY '%DB_PASSWORD%'; GRANT ALL PRIVILEGES ON %DB_NAME%.* TO '%DB_USER%'@'localhost'; FLUSH PRIVILEGES; > create_user.sql
 
-mysql -h %DB_HOST% -u %DB_ROOT_USER%  < create_user.sql
+mysql -u %DB_ROOT_USER%  < create_user.sql
 
 del create_user.sql
 
+
 :: Run the SQL script as the new user
-mysql -h %DB_HOST% -u %DB_USER% -p%DB_PASSWORD% %DB_NAME% < %SQL_FILE%
+
+mysql -h %DB_HOST% -u %DB_USER% -p%DB_PASSWORD% < %SQL_FILE%
 
 echo Database script executed successfully.
 pause
