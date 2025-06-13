@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# filepath: /home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/db/run_database.sh
-echo "Enter your username:"
-read DB_USER
-
+set -e
 
 # Variables
 DB_HOST="localhost"
+DB_ROOT_USER="root"
+read -sp "Enter your root Password" DB_ROOT_PASSWORD
+if [ -z "$DB_ROOT_PASSWORD" ]; then
+    echo "Root password cannot be empty."
+    exit 1
+fi
 DB_USER="fituser"
 DB_PASSWORD="fitpassword"
 DB_NAME="FitTrack_Database"

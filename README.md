@@ -3,15 +3,24 @@
 ## Overview
 MyBackend is a .NET 8.0-based backend application designed to manage routines, activities, and users for fitness tracking. It provides RESTful APIs for CRUD operations on routines, activities, and users.
 
-## Features
-- **Routines Management**: Create, read, update, and delete routines.
-- **Activities Management**: Manage activities associated with routines.
-- **User Management**: Handle user accounts and their associated routines.
-- **Entity Framework Core**: Used for database interactions.
-- **Swagger Integration**: API documentation and testing.
+## Index
+
+- [Overview](#overview)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+  - [Routines](#routines)
+  - [Users](#users)
+  - [Activities](#activities)
+- [Setup Instructions](#setup-instructions)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#instalation)
+- [Testing](#testing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Technologies Used
-- **.NET 9.0**
+- **.NET 8.0**
 - **Entity Framework Core**
 - **MySQL Database** (via Pomelo.EntityFrameworkCore.MySql)
 - **ASP.NET Core**
@@ -51,26 +60,37 @@ MyBackend is a .NET 8.0-based backend application designed to manage routines, a
 
 ## Setup Instructions
 ### Prerequisites
-- .NET 9.0 SDK
+- .NET 8.0 SDK
 - MySQL Database
 - Visual Studio Code or any IDE supporting .NET development
 
-### Steps
+### INSTALATION:
 1. Clone the repository:
    ```bash
    git clone https://github.com/sharedordaz/FitTrack_Backend.git
    cd MyBackend/Backend
    ```
-2. Restore dependencies:
+2. Run the database:
+   **On windows**: RUN AS ADMINISTRATOR the file InstallDB.bat
+   ![Tutorial Screenshot](tutorial.png)
+
+   **On linux or MacOS**: Run the file bash_install.sh
+3. Verify you have installed dotnet. If not, install dotnet
+   ```bash
+   dotnet --version
+   ```
+
+
+3. Restore Dependencies:
    ```bash
    dotnet restore
    ```
-3. Update the database connection string in `appsettings.json`.
-4. Apply migrations:
+4. Update the database connection string in `appsettings.json`.
+5. Apply migrations:
    ```bash
    dotnet ef database update
    ```
-5. Run the application:
+6. Run the application:
    ```bash
    dotnet run
    ```
