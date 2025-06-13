@@ -5,6 +5,7 @@ setlocal enabledelayedexpansion
 where choco >nul 2>nul
 if %errorlevel% neq 0 (
     call :install_chocolatey
+    goto :MainScript
 ) else (
     echo Chocolatey is already installed.
 )
@@ -13,13 +14,15 @@ if %errorlevel% neq 0 (
 where mysql >nul 2>nul
 if %errorlevel% neq 0 (
     call :install_mysql
+    goto :MainScript
 )
+
+goto :MainScript
 
 :: Function to install Chocolatey
 :install_chocolatey
 echo Chocolatey no esta instalado. Instalandolo ahora...
 powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
-
 if %errorlevel% neq 0 (
     echo Error: No se pudo instalar Chocolatey.
     pause
@@ -32,7 +35,7 @@ goto :eof
 echo El comando mysql no se encuentra en el sistema.
 echo Instalando MySQL...
 choco install mysql -y
-
+choco install mysql-cli -y
 if %errorlevel% neq 0 (
     echo Error: No se pudo instalar MySQL.
     pause
@@ -40,14 +43,24 @@ if %errorlevel% neq 0 (
 )
 goto :eof
 
+:MainScript
 :: Variables
 set DB_HOST=localhost
+set DB_ROOT_USER=root
 set DB_USER=fituser
 set DB_PASSWORD=fitpassword
 set DB_NAME=FitTrack_Database
 set SQL_FILE=db\database.sql
 
-:: Run the SQL script
+:: Create the user and grant privileges
+echo Creating MySQL user and granting privileges...
+echo CREATE USER IF NOT EXISTS '%DB_USER%'@'localhost' IDENTIFIED BY '%DB_PASSWORD%'; GRANT ALL PRIVILEGES ON %DB_NAME%.* TO '%DB_USER%'@'localhost'; FLUSH PRIVILEGES; > create_user.sql
+
+mysql -h %DB_HOST% -u %DB_ROOT_USER%  < create_user.sql
+
+del create_user.sql
+
+:: Run the SQL script as the new user
 mysql -h %DB_HOST% -u %DB_USER% -p%DB_PASSWORD% %DB_NAME% < %SQL_FILE%
 
 echo Database script executed successfully.
