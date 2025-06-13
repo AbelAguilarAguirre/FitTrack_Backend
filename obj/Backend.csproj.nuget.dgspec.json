@@ -1,26 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/Backend.csproj": {}
+    "C:\\Users\\Shared Ordaz DELL\\Documents\\FitTrack_Backend\\Backend.csproj": {}
   },
   "projects": {
-    "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/Backend.csproj": {
+    "C:\\Users\\Shared Ordaz DELL\\Documents\\FitTrack_Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Shared Ordaz DELL\\Documents\\FitTrack_Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/Backend.csproj",
-        "packagesPath": "/home/sharedordaz/.nuget/packages/",
-        "outputPath": "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/obj/",
+        "projectPath": "C:\\Users\\Shared Ordaz DELL\\Documents\\FitTrack_Backend\\Backend.csproj",
+        "packagesPath": "C:\\Users\\Shared Ordaz DELL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Shared Ordaz DELL\\Documents\\FitTrack_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/sharedordaz/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Shared Ordaz DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/share/dotnet/library-packs": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -33,6 +33,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -69,12 +74,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.15, 8.0.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -83,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.411/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

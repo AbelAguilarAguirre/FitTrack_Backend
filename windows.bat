@@ -1,9 +1,23 @@
 @echo off
 setlocal enabledelayedexpansion
 
+:: Check for Chocolatey
+where choco >nul 2>nul
+if %errorlevel% neq 0 (
+    call :install_chocolatey
+) else (
+    echo Chocolatey is already installed.
+)
+
+:: Check for MySQL
+where mysql >nul 2>nul
+if %errorlevel% neq 0 (
+    call :install_mysql
+)
+
 :: Function to install Chocolatey
 :install_chocolatey
-echo Chocolatey no está instalado. Instalándolo ahora...
+echo Chocolatey no esta instalado. Instalandolo ahora...
 powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
 
 if %errorlevel% neq 0 (
@@ -25,18 +39,6 @@ if %errorlevel% neq 0 (
     exit /b
 )
 goto :eof
-
-:: Check for Chocolatey
-where choco >nul 2>nul
-if %errorlevel% neq 0 (
-    call :install_chocolatey
-)
-
-:: Check for MySQL
-where mysql >nul 2>nul
-if %errorlevel% neq 0 (
-    call :install_mysql
-)
 
 :: Variables
 set DB_HOST=localhost
