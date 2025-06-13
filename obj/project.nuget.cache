@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NyY4L6Mc09I=",
+  "dgSpecHash": "0Rx9I0hdVUvm+ammreGrsS3j7BJB8sk3i1N0jXuETwe83F0rqtU9h1qPtw5mXLy3Ixni4pImPfuR+N47S1GqMg==",
   "success": true,
   "projectFilePath": "/home/sharedordaz/Documentos/BYUI/term3/dotnet/MyBackend/Backend/Backend.csproj",
   "expectedPackageFiles": [
@@ -49,7 +49,7 @@
     "/home/sharedordaz/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/home/sharedordaz/.nuget/packages/system.text.encoding.codepages/6.0.0/system.text.encoding.codepages.6.0.0.nupkg.sha512",
     "/home/sharedordaz/.nuget/packages/system.threading.channels/6.0.0/system.threading.channels.6.0.0.nupkg.sha512",
-    "/home/sharedordaz/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.4/microsoft.aspnetcore.app.ref.9.0.4.nupkg.sha512"
+    "/home/sharedordaz/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
   ],
   "logs": []
 }

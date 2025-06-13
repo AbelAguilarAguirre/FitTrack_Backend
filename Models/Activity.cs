@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace Backend.Models
 {
 
@@ -8,16 +9,17 @@ namespace Backend.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string name { get; set; }
+
+        public string description { get; set; }
 
         
         public ICollection<Routine> Routines { get; set; } = new List<Routine>();
-        public Activity(int id, string Name, string Description)
+        public Activity(int id, string name, string description)
         {
             Id = id;
-            Name = Name;
-            Description = Description;
+            name = name;
+            description = description;
             // Here you would typically save the user to a database
             // For this example, we are just creating the object
         }

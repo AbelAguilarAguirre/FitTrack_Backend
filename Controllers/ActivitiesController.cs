@@ -37,12 +37,13 @@ namespace Backend.Controllers
         public IActionResult CreateActivity([FromBody] Activity activity)
         {
             if (!ModelState.IsValid)
-            {
+            {   
+                Console.WriteLine($"{activity.name} is not valid");
                 return BadRequest(ModelState);
             }
 
             _context.Activities.Add(activity);
-            _context.SaveChanges();
+            _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetActivityById), new { id = activity.Id }, activity);
         }
 
@@ -60,7 +61,7 @@ namespace Backend.Controllers
                 return NotFound();
             }
 
-            activity.Name = updatedActivity.Name;
+            activity.name = updatedActivity.name;
 
             _context.SaveChanges();
             return NoContent();
