@@ -84,6 +84,18 @@ echo CREATE USER IF NOT EXISTS '%DB_USER%'@'localhost' IDENTIFIED BY '%DB_PASSWO
 
 mysql -u %DB_ROOT_USER% < create_user.sql > mysql_output.log 2>&1
 type mysql_output.log
+
+for %%A in (mysql_output.log) do set FILESIZE=%%~zA
+if %FILESIZE%==0 (
+    echo The User was created succesfully
+) else (
+    echo Your MySQL root user has a password. Log:
+    type mysql_output.log
+
+    set /p NEW_PASSWORD="Please enter your root password to continue";
+    mysql -u %DB_ROOT_USER% -p%NEW_PASSWORD% < create_user.sql > mysql_output.log 2>&1
+   
+)
 if %errorlevel% neq 0 (
     echo Error: No se pudo crear el usuario de MySQL o asignar privilegios.
     pause
