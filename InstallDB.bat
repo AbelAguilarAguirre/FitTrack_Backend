@@ -89,7 +89,7 @@ for %%A in (mysql_output.log) do set FILESIZE=%%~zA
 if %FILESIZE%==0 (
     echo The User was created succesfully
 ) else (
-    echo Your MySQL root user has a password. Log:
+    echo Your MySQL root user requires a password. Log:
     type mysql_output.log
 
     mysql -u %DB_ROOT_USER% -p < create_user.sql > mysql_output.log 2>&1
