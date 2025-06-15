@@ -19,6 +19,16 @@ if %errorlevel% neq 0 (
 
 goto :MainScript
 
+
+:: Check for dotnet
+where dotnet >nul 2>nul
+if %errorlevel% neq 0 (
+    call :install_dotnet
+    goto :MainScript
+)
+
+goto :MainScript
+
 :: Function to install Chocolatey
 :install_chocolatey
 echo Chocolatey no esta instalado. Instalandolo ahora...
@@ -43,6 +53,21 @@ if %errorlevel% neq 0 (
 )
 goto :eof
 
+
+:: Function to install dotnet
+:install_dotnet
+echo El comando dotnet no se encuentra en el sistema.
+echo Instalando Dotnet 8.0...
+choco install dotnet-8.0-sdk
+if %errorlevel% neq 0 (
+    echo Error: No se pudo instalar Dotnet8.0.
+    pause
+    exit /b
+)
+goto :eof
+
+
+
 :MainScript
 :: Variables
 set DB_HOST=localhost
@@ -57,7 +82,8 @@ set SQL_FILE=%~dp0db\database.sql
 echo Creating MySQL user and granting privileges...
 echo CREATE USER IF NOT EXISTS '%DB_USER%'@'localhost' IDENTIFIED BY '%DB_PASSWORD%'; GRANT ALL PRIVILEGES ON %DB_NAME%.* TO '%DB_USER%'@'localhost'; FLUSH PRIVILEGES; > create_user.sql
 
-mysql -u %DB_ROOT_USER%  < create_user.sql
+mysql -u %DB_ROOT_USER% < create_user.sql > mysql_output.log 2>&1
+type mysql_output.log
 if %errorlevel% neq 0 (
     echo Error: No se pudo crear el usuario de MySQL o asignar privilegios.
     pause
