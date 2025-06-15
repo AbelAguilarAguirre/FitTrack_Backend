@@ -91,8 +91,9 @@ if %FILESIZE%==0 (
 ) else (
     echo Your MySQL root user requires a password. Log:
     type mysql_output.log
-
-    mysql -u %DB_ROOT_USER% -p < create_user.sql > mysql_output.log 2>&1
+    
+    set /p root_password=Enter MySQL root password: 
+    mysql -u %DB_ROOT_USER% -p%root_password% < create_user.sql > mysql_output.log 2>&1
     
 )
 if %errorlevel% neq 0 (
