@@ -1,19 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: Enable ANSI escape codes
-for /f "tokens=2 delims==" %%A in ('"prompt $E"') do set "ESC=%%A"
-
-:: Variables
-set GREEN=%ESC%[32m
-set RED=%ESC%[31m
-set YELLOW =%ESC% \033[33m
-set BLUE=%ESC%[34m
-
-    
-
-
-set RESET=%ESC%[0m
+:: Colores (estos solo funcionan uno a la vez en toda la consola)
+:: Verde claro: 0A
+:: Rojo claro: 0C
+:: Amarillo claro: 0E
+:: Blanco (por defecto): 07
 
 :: Check for Chocolatey
 where choco >nul 2>nul
@@ -21,7 +13,9 @@ if %errorlevel% neq 0 (
     call :install_chocolatey
     goto :MainScript
 ) else (
-    echo Chocolatey is already installed.
+    color 0A
+    echo Chocolatey ya esta instalado.
+    color 07
 )
 
 :: Check for MySQL
@@ -30,9 +24,6 @@ if %errorlevel% neq 0 (
     call :install_mysql
     goto :MainScript
 )
-
-goto :MainScript
-
 
 :: Check for dotnet
 where dotnet >nul 2>nul
@@ -43,47 +34,51 @@ if %errorlevel% neq 0 (
 
 goto :MainScript
 
-:: Function to install Chocolatey
+:: Función: Instalar Chocolatey
 :install_chocolatey
-echo %BLUE% Chocolatey no esta instalado. Instalandolo ahora...
+color 0E
+echo Chocolatey no esta instalado. Instalando...
 powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
 if %errorlevel% neq 0 (
-    echo %RED% Error: No se pudo instalar Chocolatey.
+    color 0C
+    echo Error: No se pudo instalar Chocolatey.
     pause
     exit /b
 )
+color 07
 goto :eof
 
-:: Function to install MySQL
+:: Función: Instalar MySQL
 :install_mysql
-echo %BLUE% El comando mysql no se encuentra en el sistema.
-echo Instalando MySQL...
+color 0E
+echo El comando mysql no se encuentra. Instalando MySQL...
 choco install mysql -y
 choco install mysql-cli -y
 if %errorlevel% neq 0 (
-    echo %RED% Error: No se pudo instalar MySQL.
+    color 0C
+    echo Error: No se pudo instalar MySQL.
     pause
     exit /b
 )
+color 07
 goto :eof
 
-
-:: Function to install dotnet
+:: Función: Instalar .NET SDK
 :install_dotnet
-echo %BLUE% El comando dotnet no se encuentra en el sistema.
-echo Instalando Dotnet 8.0...
-choco install dotnet-8.0-sdk
+color 0E
+echo El comando dotnet no se encuentra. Instalando .NET 8.0 SDK...
+choco install dotnet-8.0-sdk -y
 if %errorlevel% neq 0 (
-    echo %RED% Error: No se pudo instalar Dotnet8.0.
+    color 0C
+    echo Error: No se pudo instalar .NET.
     pause
     exit /b
 )
+color 07
 goto :eof
-
-
 
 :MainScript
-:: Variables
+:: Variables de base de datos
 set DB_HOST=localhost
 set DB_ROOT_USER=root
 set DB_USER=fituser
@@ -91,48 +86,46 @@ set DB_PASSWORD=fitpassword
 set DB_NAME=FitTrack_Database
 set SQL_FILE=%~dp0db\database.sql
 
-
-:: Create the user and grant privileges
-echo %YELLOW% Creating MySQL user and granting privileges...
+:: Crear usuario de MySQL
+color 0E
+echo Creando usuario de MySQL y asignando privilegios...
 echo CREATE USER IF NOT EXISTS '%DB_USER%'@'localhost' IDENTIFIED BY '%DB_PASSWORD%'; GRANT ALL PRIVILEGES ON %DB_NAME%.* TO '%DB_USER%'@'localhost'; FLUSH PRIVILEGES; > create_user.sql
 
 mysql -u %DB_ROOT_USER% < create_user.sql > mysql_output.log 2>&1
-type mysql_output.log
 
 for %%A in (mysql_output.log) do set FILESIZE=%%~zA
 if %FILESIZE%==0 (
-    echo The User was created succesfully
+    color 0A
+    echo Usuario creado correctamente.
 ) else (
-    echo %YELLOW% Your MySQL root user requires a password. Log:
-    type mysql_output.log
-    
-    ::set /p root_password=Enter MySQL root password: 
+    color 0E
+    echo Parece que MySQL requiere contraseña de root. Reintentando...
     mysql -u %DB_ROOT_USER% -p < create_user.sql > mysql_output.log 2>&1
-    
 )
+
 if %errorlevel% neq 0 (
-    echo %RED% Error: No se pudo crear el usuario de MySQL o asignar privilegios.
+    color 0C
+    echo Error: No se pudo crear el usuario o asignar privilegios.
     pause
     exit /b
 )
 
 del create_user.sql
 
-
-echo %GREEN% User created and privileges granted.
+color 0A
+echo Usuario creado y privilegios asignados.
 mysql -u root -e "SELECT user, host FROM mysql.user WHERE user = 'fituser';"
 
-
-:: Run the SQL script as the new user
-
+:: Ejecutar script de base de datos
 mysql -h %DB_HOST% -u %DB_USER% -p%DB_PASSWORD% < %SQL_FILE%
-
-
 if %errorlevel% neq 0 (
-    echo %RED% Error: No se pudo ejecutar el script de la base de datos.
+    color 0C
+    echo Error: No se pudo ejecutar el script de la base de datos.
     pause
     exit /b
 )
 
-echo %GREEN% Database script executed successfully.
+color 0A
+echo Script de base de datos ejecutado con exito.
+color 07
 pause
