@@ -66,6 +66,8 @@ if %errorlevel% neq 0 (
 
 del create_user.sql
 
+mysql -u root -e "SELECT user, host FROM mysql.user WHERE user = 'fituser';"
+
 
 :: Run the SQL script as the new user
 
@@ -75,8 +77,6 @@ if %errorlevel% neq 0 (
     pause
     exit /b
 )
-
-
 
 echo Database script executed successfully.
 pause
