@@ -50,7 +50,7 @@ set DB_ROOT_USER=root
 set DB_USER=fituser
 set DB_PASSWORD=fitpassword
 set DB_NAME=FitTrack_Database
-set SQL_FILE=db\database.sql
+set SQL_FILE=%~dp0db\database.sql
 
 
 :: Create the user and grant privileges
@@ -66,12 +66,16 @@ if %errorlevel% neq 0 (
 
 del create_user.sql
 
+
+echo: User created and privileges granted.
 mysql -u root -e "SELECT user, host FROM mysql.user WHERE user = 'fituser';"
 
 
 :: Run the SQL script as the new user
 
 mysql -h %DB_HOST% -u %DB_USER% -p%DB_PASSWORD% < %SQL_FILE%
+
+
 if %errorlevel% neq 0 (
     echo Error: No se pudo ejecutar el script de la base de datos.
     pause
