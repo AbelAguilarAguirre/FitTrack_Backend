@@ -65,5 +65,12 @@ del create_user.sql
 
 mysql -h %DB_HOST% -u %DB_USER% -p%DB_PASSWORD% < %SQL_FILE%
 
+if !%SQL_FILE%{
+    echo Error: No se ejecuto el script de la base de datos.
+    pause
+    exit /b
+    }
+   
+
 echo Database script executed successfully.
 pause
