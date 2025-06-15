@@ -92,9 +92,8 @@ if %FILESIZE%==0 (
     echo Your MySQL root user has a password. Log:
     type mysql_output.log
 
-    set /p NEW_PASSWORD="Please enter your root password to continue";
-    mysql -u %DB_ROOT_USER% -p%NEW_PASSWORD% < create_user.sql > mysql_output.log 2>&1
-   
+    mysql -u %DB_ROOT_USER% -p < create_user.sql > mysql_output.log 2>&1
+    
 )
 if %errorlevel% neq 0 (
     echo Error: No se pudo crear el usuario de MySQL o asignar privilegios.
