@@ -13,16 +13,14 @@ namespace Backend.Models
 
         public string description { get; set; }
 
-        
-        public ICollection<Routine> Routines { get; set; } = new List<Routine>();
-        public Activity(int id, string name, string description)
+
+        public ICollection<Routine> Routines { get; set; } = new List<Routine>(); public Activity(int id, string name, string description)
         {
             Id = id;
-            name = name;
-            description = description;
+            this.name = name;
+            this.description = description;
             // Here you would typically save the user to a database
             // For this example, we are just creating the object
         }
     }
 }
-    

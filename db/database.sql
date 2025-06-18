@@ -2,58 +2,49 @@
 -- jue 29 may 2025 23:41:16
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS,
+  UNIQUE_CHECKS = 0;
+SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS,
+  FOREIGN_KEY_CHECKS = 0;
+SET @OLD_SQL_MODE = @@SQL_MODE,
+  SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 -- -----------------------------------------------------
 -- Schema default_schema
 -- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Schema FitTrack_Database
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `FitTrack_Database` ;
-
+DROP SCHEMA IF EXISTS `FitTrack_Database`;
 -- -----------------------------------------------------
 -- Schema FitTrack_Database
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `FitTrack_Database` ;
-USE `FitTrack_Database` ;
-
+CREATE SCHEMA IF NOT EXISTS `FitTrack_Database`;
+USE `FitTrack_Database`;
 -- -----------------------------------------------------
 -- Table `FitTrack_Database`.`activities`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `FitTrack_Database`.`activities` ;
-
+DROP TABLE IF EXISTS `FitTrack_Database`.`activities`;
 CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`activities` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8mb4;
-
-
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
 -- -----------------------------------------------------
 -- Table `FitTrack_Database`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `FitTrack_Database`.`users` ;
-
+DROP TABLE IF EXISTS `FitTrack_Database`.`users`;
 CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX (`username` ASC) VISIBLE)
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8mb4;
-
+  UNIQUE INDEX (`username` ASC) VISIBLE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
 -- -----------------------------------------------------
 -- Table `FitTrack_Database`.`routine`
 -- -----------------------------------------------------
-
-DROP TABLE IF EXISTS `FitTrack_Database`.`routine` ;
-
+DROP TABLE IF EXISTS `FitTrack_Database`.`routine`;
 CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`routine` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
@@ -61,29 +52,15 @@ CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`routine` (
   `value` INT NOT NULL,
   `unit` VARCHAR(20) NULL DEFAULT NULL,
   `repetitions` INT NULL DEFAULT NULL,
+  `progress` DOUBLE NULL DEFAULT 0,
   `date` DATE NOT NULL,
   `type` ENUM('goal', 'done') NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `idx_user_id` (`user_id` ASC) VISIBLE,
   INDEX `idx_activity_id` (`activity_id` ASC) VISIBLE,
-  CONSTRAINT `fk_routine_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `FitTrack_Database`.`users` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_routine_activity`
-    FOREIGN KEY (`activity_id`)
-    REFERENCES `FitTrack_Database`.`activities` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
+  CONSTRAINT `fk_routine_user` FOREIGN KEY (`user_id`) REFERENCES `FitTrack_Database`.`users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_routine_activity` FOREIGN KEY (`activity_id`) REFERENCES `FitTrack_Database`.`activities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
+SET SQL_MODE = @OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
