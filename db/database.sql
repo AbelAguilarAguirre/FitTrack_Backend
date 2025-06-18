@@ -26,9 +26,12 @@ USE `FitTrack_Database`;
 DROP TABLE IF EXISTS `FitTrack_Database`.`activities`;
 CREATE TABLE IF NOT EXISTS `FitTrack_Database`.`activities` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX `idx_activities_user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_activities_user` FOREIGN KEY (`user_id`) REFERENCES `FitTrack_Database`.`users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
 -- -----------------------------------------------------
 -- Table `FitTrack_Database`.`users`

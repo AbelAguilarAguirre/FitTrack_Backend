@@ -84,16 +84,16 @@ namespace Backend.Controllers
                 }
 
                 // Return success response with user info (without password)
-                return Ok(new 
-                { 
-                    success = true, 
+                return Ok(new
+                {
+                    success = true,
                     message = "Login successful",
                     user = new { user.Id, user.Username }
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { success = false, message = "Login failed" });
+                return BadRequest(new { success = false, message = "Login failed: " + ex });
             }
         }
 

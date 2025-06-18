@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Backend.Models
 {
@@ -15,10 +16,9 @@ namespace Backend.Models
         [Required]
         public int activity_id { get; set; } // Renamed to follow PascalCase        [Required]
         public int value { get; set; }
-
         [Required]
         [MaxLength(20)]
-        public string unit { get; set; }
+        public string unit { get; set; } = string.Empty;
         public int repetitions { get; set; }
 
         public double progress { get; set; } = 0; // Progress towards the goal (0 to value)
@@ -27,11 +27,12 @@ namespace Backend.Models
 
         [Required]
         public RoutineType Type { get; set; } // Enum for type safety        // Add navigation properties
-        public User User { get; set; } // Navigation property for User
-        public Activity Activity { get; set; } // Navigation property for Activity
+        [JsonIgnore]
+        public User? User { get; set; } // Navigation property for User
+        [JsonIgnore]
+        public Activity? Activity { get; set; } // Navigation property for Activity
 
-        // Default constructor for Entity Framework and JSON serialization
-        public Routine() { }
+        public Routine() { } // Parameterless constructor for EF Core
 
         public Routine(int id, int user_id, int activity_id, int value, string unit, int repetitions = 0, double progress = 0, DateTime? date = null, RoutineType type = RoutineType.done)
         {
